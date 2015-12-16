@@ -54,28 +54,25 @@
         imageSwitcher: function () {
             var $gallery    = $('.gallery');
             var $mainImg    = $('.gallery__main img');
-            var $thumbnail  = $('.gallery__thumbs__container');
-            var $thumbs     = $('.gallery__thumbs');
-            var $thumbsImg  = $('.gallery__thumbs img');
-            var $navLeft    = $('.gallery__nav.nav__left');
-            var $navRight   = $('.gallery__nav.nav__right');
+            var $thumbsImg  = $('.gallery__thumbs a');
 
-
-
-            $gallery.on('click', '.gallery__thumbs img', function(event) {
-                var $getImg = $(this).attr('src');
-                var $getAlt = $(this).attr('alt');
+            $gallery.on('click', '.gallery__thumbs a', function(event) {
+                var $getImg = $(this).attr('href');
+                var $getAlt = $(this).find('img').attr('alt');
                 var load = '<div class="overlay"><img src="assets/img/loading.gif"/></div>'
                 
                 $thumbsImg.removeClass('no-click');
                 $('.overlay').remove();
                 $mainImg.before(load);
-                $mainImg.attr({
-                    src: $getImg,
-                    alt: $getAlt
+
+                $('.overlay').delay(400).fadeOut('slow', function(e) { 
+                    $(this).remove(); 
+                    $mainImg.attr({
+                        src: $getImg,
+                        alt: $getAlt
+                    });
                 });
-                $('.overlay').delay(400).fadeOut('slow', function() { $(this).remove(); });
-                $(this).addClass('no-click');
+                event.preventDefault();
             });
         },
 

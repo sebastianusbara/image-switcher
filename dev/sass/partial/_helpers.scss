@@ -75,3 +75,8 @@
 .invisible {
     visibility: hidden;
 }
+
+.no-click {
+    cursor: default;
+    pointer-events: none;
+}

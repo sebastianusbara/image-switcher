@@ -395,6 +395,11 @@ input[type="search"] {
   visibility: hidden;
 }
 
+.no-click {
+  cursor: default;
+  pointer-events: none;
+}
+
 @media print {
   * {
     background: transparent !important;
@@ -1117,7 +1122,6 @@ input[type="number"] {
   max-width: 600px;
   height: 580px;
   position: relative;
-  overflow: hidden;
   z-index: 1;
 }
 
@@ -1133,62 +1137,40 @@ input[type="number"] {
      object-fit: cover;
 }
 
-.gallery__thumbs__container {
-  position: relative;
-  display: inline-block;
-  width: 1000px;
-}
-
-.gallery__select {
-  position: relative;
-  width: 600px;
-}
-
-.gallery__nav {
-  position: absolute;
-  display: inline-block;
-  z-index: 4;
-  top: -webkit-calc(50% - 35px);
-  top: calc(50% - 35px);
-}
-
-.gallery__nav:hover {
-  background: gainsboro;
+.carousel {
+  overflow: hidden;
+  width: 450px;
+  margin-left: 80px;
 }
 
 .nav__left {
+  position: absolute;
   left: 0;
+  bottom: 70px;
 }
 
 .nav__right {
+  position: absolute;
   right: 0;
+  bottom: 70px;
 }
 
-.gallery__thumbnail {
-  position: relative;
-  bottom: 0;
-  width: 430px;
-  overflow: hidden;
-  z-index: 3;
-  left: 85px;
-}
-
-.gallery__thumbs figure {
+.gallery__thumbs {
   display: inline-block;
   width: 140px;
   height: 140px;
+  margin-right: 10px;
 }
 
-.gallery__thumbs figure img {
+.gallery__thumbs img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
-.gallery__thumbs figure:hover {
+.gallery__thumbs:hover {
   cursor: pointer;
-  border: 5px solid red;
 }
 
 .overlay {
@@ -1204,9 +1186,10 @@ input[type="number"] {
   position: relative;
   width: 100px;
   height: 100px;
-  left: -webkit-calc(50% - 100px);
-  left: calc(50% - 100px);
-  top: 50%;
+  left: -webkit-calc(50% - 50px);
+  left: calc(50% - 50px);
+  top: -webkit-calc(50% - 50px);
+  top: calc(50% - 50px);
 }
 
 /*!

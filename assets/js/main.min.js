@@ -10,7 +10,8 @@
     var assets = {
         _jquery_cdn     : 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js',
         _jquery_local   : path.js + 'jquery.min.js',
-        _fastclick      : path.js + 'fastclick.min.js'
+        _fastclick      : path.js + 'fastclick.min.js',
+        _slick          : path.js + 'slick.min.js'
     };
 
     var Site = {
@@ -20,6 +21,7 @@
             Site.enableActiveStateMobile();
             Site.WPViewportFix();
             Site.imageSwitcher();
+            Site.slickSlider();
 
             window.Site = Site;
         },
@@ -54,35 +56,42 @@
             var $mainImg    = $('.gallery__main img');
             var $thumbnail  = $('.gallery__thumbs__container');
             var $thumbs     = $('.gallery__thumbs');
+            var $thumbsImg  = $('.gallery__thumbs img');
             var $navLeft    = $('.gallery__nav.nav__left');
             var $navRight   = $('.gallery__nav.nav__right');
-            var $first      = $('.gallery__thumbs').first();
-            var $last       = $('.gallery__thumbs').last();
+
 
 
             $gallery.on('click', '.gallery__thumbs img', function(event) {
                 var $getImg = $(this).attr('src');
                 var $getAlt = $(this).attr('alt');
+                var load = '<div class="overlay"><img src="assets/img/loading.gif"/></div>'
                 
+                $thumbsImg.removeClass('no-click');
                 $('.overlay').remove();
-                $mainImg.before('<div class="overlay"><img src="assets/img/loading.gif"/></div>');
+                $mainImg.before(load);
                 $mainImg.attr({
                     src: $getImg,
                     alt: $getAlt
                 });
-                $('.overlay').delay(400).fadeOut('slow', function() { $(this).remove(); })
+                $('.overlay').delay(400).fadeOut('slow', function() { $(this).remove(); });
+                $(this).addClass('no-click');
             });
+        },
 
-            $navLeft.on('click', function() {
-                $thumbnail.animate({left: '-=145px'});
-                $last.remove().css({ 'margin-left': '5px' });
-                $last.after($first);
-            });
-
-            $navRight.on('click', function() {
-                $last.remove().css({ 'margin-left': '-145px' }).css({ 'margin-right': '5px' });
-                $thumbnail.animate({left: '+=145px'});
-                $first.before($last);
+        slickSlider: function () {
+            Modernizr.load({
+                load    : assets._slick,
+                complete: function () {
+                    $('.carousel').slick(
+                        {
+                            infinite: true,
+                            adaptiveHeight: false,
+                            prevArrow: $('.nav__left'),
+                            nextArrow: $('.nav__right')
+                        }
+                    );
+                }
             });
         }
 

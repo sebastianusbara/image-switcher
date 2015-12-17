@@ -65,11 +65,11 @@
                 var $href = $(this).attr('href'); 
 
                 $main.addClass('gallery__main--load');
-                $thumbsImg.addClass('no-click');
+                $gallery.addClass('no-click');
                 
                 $mainImg.load(function() {
                     $main.removeClass('gallery__main--load');
-                    $thumbsImg.removeClass('no-click');
+                    $gallery.removeClass('no-click');
                 });
 
                 $mainImg.attr('src', $href);

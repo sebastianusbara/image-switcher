@@ -66,15 +66,13 @@
 
                 $main.addClass('gallery__main--load');
                 $thumbsImg.addClass('no-click');
-
-                $mainImg.attr({
-                src: $href,
-                });
                 
                 $mainImg.load(function() {
                     $main.removeClass('gallery__main--load');
                     $thumbsImg.removeClass('no-click');
                 });
+
+                $mainImg.attr('src', $href);
             });
         },
 

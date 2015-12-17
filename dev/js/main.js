@@ -2,6 +2,8 @@
 
 ;(function ( window, document, undefined ) {
 
+    var animationComplete = false;
+
     var path = {
         css: myPrefix + 'assets/css/',
         js : myPrefix + 'assets/js/vendor/'
@@ -54,25 +56,25 @@
         imageSwitcher: function () {
             var $gallery    = $('.gallery');
             var $mainImg    = $('.gallery__main img');
+            var $main       = $('.gallery__main');
             var $thumbsImg  = $('.gallery__thumbs a');
 
             $gallery.on('click', '.gallery__thumbs a', function(event) {
-                var $getImg = $(this).attr('href');
-                var $getAlt = $(this).find('img').attr('alt');
-                var load = '<div class="overlay"><img src="assets/img/loading.gif"/></div>'
-                
-                $thumbsImg.removeClass('no-click');
-                $('.overlay').remove();
-                $mainImg.before(load);
-
-                $('.overlay').delay(400).fadeOut('slow', function(e) { 
-                    $(this).remove(); 
-                    $mainImg.attr({
-                        src: $getImg,
-                        alt: $getAlt
-                    });
-                });
                 event.preventDefault();
+
+                var $href = $(this).attr('href'); 
+
+                $main.addClass('gallery__main--load');
+                $thumbsImg.addClass('no-click');
+
+                $mainImg.attr({
+                src: $href,
+                });
+                
+                $mainImg.load(function() {
+                    $main.removeClass('gallery__main--load');
+                    $thumbsImg.removeClass('no-click');
+                });
             });
         },
 
